@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Psychic Game</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -14,14 +15,55 @@
 		<p>Guesses Left:</p>
 		<p>Your Guesses so far:</p>
 	</div>
+
+		<script type="text/javascript">
 		
-		var letterChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
-	
-		var wins = 0;
-		var losses = 0;
-		var numGuesses = 10;
-		var guessChoices = [];
-	
-	
+		 var letterChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", 
+		 "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
+		 var wins = 0;
+		 var losses = 0;
+		 var Guesses = 10;
+		 var guessedLetters = [];
+
+		 document.onkeyup = function(event) {
+
+		 var userGuess = event.key;
+		 var computerGuess = letterChoices[Math.floor(Math.random() * letterChoices.length)];
+		 var options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", 
+		 "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
+		 	
+
+			if (options.indexOf(userGuess) > -1) {
+
+				if (userGuess === computerGuess) {
+					wins++;
+					Guesses = 10;
+					guessedLetters = [];
+					alert("Winner Winner Chicken Dinner!!!");
+				}
+
+				if (userGuess != computerGuess) {
+					Guesses --;
+					guessedLetters.push(userGuess);
+				}
+
+				if (Guesses === 0) {
+
+				Guesses = 10;
+				losses ++;
+				guessedLetters = [];
+				alert("LOSER!!"); 
+			}
+
+		var html = "<h1> The Psychic Game </h1>" + "<p>Guess what letter I'm thinking of!</p>" + "<p>Wins: " + wins + "</p>" +
+		"<p>Losses: " + losses + "</p>" + "<p>Guesses Left: " + Guesses + "</p>" + "<p>Your Guesses so far: " + guessedLetters.join(", ") + "</p>";
+		document.querySelector("#game").innerHTML = html;
+
+			
+			}
+		};
+
+	</script>
+
 </body>
 </html>
